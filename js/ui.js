@@ -58,15 +58,19 @@ function updateJokeContent(joke) {
     revealBtn.classList.remove('hidden');
 
     // Update reaction counts from database
-    const formatCount = (n) => n >= 1000 ? (n / 1000).toFixed(1) + 'k' : n;
+    const formatCount = (n) => {
+        const num = n || 0;
+        return num >= 1000 ? (num / 1000).toFixed(1) + 'k' : num;
+    };
 
     document.querySelectorAll('.reaction-btn').forEach(btn => {
         btn.classList.remove('active');
         const countEl = btn.querySelector('.reaction-count');
         const type = btn.dataset.reaction;
+        const countKey = `${type}_count`;
 
-        if (countEl && joke[`${type}_count`] !== undefined) {
-            countEl.textContent = formatCount(joke[`${type}_count`]);
+        if (countEl) {
+            countEl.textContent = formatCount(joke[countKey]);
         }
     });
 }
@@ -180,6 +184,34 @@ export function animateReaction(element) {
     element.style.animation = 'none';
     element.offsetHeight; // Force reflow
     element.style.animation = 'pop 0.3s ease';
+}
+
+/**
+ * Update reaction counts from live data (real-time)
+ * @param {Object} jokeData - Updated joke data with counts
+ */
+export function updateReactionCounts(jokeData) {
+    const formatCount = (n) => n >= 1000 ? (n / 1000).toFixed(1) + 'k' : n;
+
+    document.querySelectorAll('.reaction-btn').forEach(btn => {
+        const countEl = btn.querySelector('.reaction-count');
+        const type = btn.dataset.reaction;
+        const countKey = `${type}_count`;
+
+        if (countEl && jokeData[countKey] !== undefined) {
+            const newCount = formatCount(jokeData[countKey]);
+            const oldCount = countEl.textContent;
+
+            // Only animate if count changed
+            if (newCount !== oldCount) {
+                countEl.textContent = newCount;
+                // Pulse animation for live update
+                countEl.style.animation = 'none';
+                countEl.offsetHeight; // Force reflow
+                countEl.style.animation = 'pulse 0.3s ease';
+            }
+        }
+    });
 }
 
 /**

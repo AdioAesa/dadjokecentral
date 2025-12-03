@@ -603,3 +603,27 @@
     0% { background-position: -200% 0; }
     100% { background-position: 200% 0; }
 }
+
+/* Pop animation for reactions */
+@keyframes pop {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.3); }
+    100% { transform: scale(1); }
+}
+
+/* Pulse animation for live count updates */
+@keyframes pulse {
+    0% { transform: scale(1); color: inherit; }
+    50% { transform: scale(1.2); color: var(--color-accent); }
+    100% { transform: scale(1); color: inherit; }
+}
+
+/* Live indicator dot */
+.reaction-count {
+    position: relative;
+}
+
+/* Show a subtle glow on live updates */
+.reaction-count.live-update {
+    text-shadow: 0 0 8px var(--color-accent);
+}

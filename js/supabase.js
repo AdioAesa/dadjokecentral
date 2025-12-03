@@ -147,7 +147,7 @@ export async function addReaction(jokeId, reactionType) {
         .select('id')
         .eq('joke_id', jokeId)
         .eq('session_id', sessionId)
-        .single();
+        .maybeSingle();
 
     if (existing) {
         return { success: false, message: 'Already reacted' };
@@ -258,7 +258,45 @@ export async function getUserReaction(jokeId) {
         .select('reaction_type')
         .eq('joke_id', jokeId)
         .eq('session_id', sessionId)
-        .single();
+        .maybeSingle();
 
     return data?.reaction_type || null;
+}
+
+/**
+ * Subscribe to real-time updates for a specific joke's reactions
+ * @param {string} jokeId - The joke ID to subscribe to
+ * @param {function} onUpdate - Callback when joke data changes
+ * @returns {object} Subscription channel for cleanup
+ */
+export function subscribeToJoke(jokeId, onUpdate) {
+    if (!supabase) return null;
+
+    const channel = supabase
+        .channel(`joke-${jokeId}`)
+        .on(
+            'postgres_changes',
+            {
+                event: 'UPDATE',
+                schema: 'public',
+                table: 'jokes',
+                filter: `id=eq.${jokeId}`
+            },
+            (payload) => {
+                onUpdate(payload.new);
+            }
+        )
+        .subscribe();
+
+    return channel;
+}
+
+/**
+ * Unsubscribe from joke updates
+ * @param {object} channel - The subscription channel to remove
+ */
+export function unsubscribeFromJoke(channel) {
+    if (channel && supabase) {
+        supabase.removeChannel(channel);
+    }
 }

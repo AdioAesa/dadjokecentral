@@ -280,3 +280,11 @@ CREATE TRIGGER categories_updated_at
 CREATE TRIGGER jokes_updated_at
     BEFORE UPDATE ON jokes
     FOR EACH ROW EXECUTE FUNCTION update_updated_at();
+
+-- ----------------------------------------
+-- REALTIME (for live reaction updates)
+-- ----------------------------------------
+
+-- Enable realtime for jokes table (run this in Supabase SQL editor)
+-- This allows clients to subscribe to changes
+ALTER PUBLICATION supabase_realtime ADD TABLE jokes;

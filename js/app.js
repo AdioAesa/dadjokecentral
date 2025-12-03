@@ -4,7 +4,7 @@
  */
 
 import { store } from './store.js';
-import { initSupabase, getCategories, getRandomJoke, addReaction, submitJoke, getUserReaction } from './supabase.js';
+import { initSupabase, getCategories, getRandomJoke, addReaction, submitJoke, getUserReaction, subscribeToJoke, unsubscribeFromJoke } from './supabase.js';
 import {
     initElements,
     getElements,
@@ -16,8 +16,12 @@ import {
     toggleSharePopup,
     triggerConfetti,
     animateReaction,
-    initScrollAnimations
+    initScrollAnimations,
+    updateReactionCounts
 } from './ui.js';
+
+// Track current subscription for cleanup
+let currentSubscription = null;
 import {
     copyToClipboard,
     canNativeShare,
@@ -75,6 +79,12 @@ async function loadNewJoke(categorySlug = null) {
     const { currentJoke } = store.getState();
     const elements = getElements();
 
+    // Unsubscribe from previous joke's real-time updates
+    if (currentSubscription) {
+        unsubscribeFromJoke(currentSubscription);
+        currentSubscription = null;
+    }
+
     // Show loading
     elements.jokeCard?.classList.add('loading');
 
@@ -98,6 +108,12 @@ async function loadNewJoke(categorySlug = null) {
 
         renderJoke(newJoke);
         setActiveCategory(categorySlug);
+
+        // Subscribe to real-time updates for this joke
+        currentSubscription = subscribeToJoke(newJoke.id, (updatedJoke) => {
+            // Update reaction counts in real-time
+            updateReactionCounts(updatedJoke);
+        });
 
         // Restore user's reaction if they had one
         if (userReaction) {
