@@ -137,6 +137,7 @@ export async function getDailyJoke() {
 
 /**
  * Increment reaction count for a joke
+ * Uses RPC for atomic increment to avoid race conditions
  */
 export async function addReaction(jokeId, reactionType) {
     const sessionId = config.getSessionId();
@@ -153,50 +154,44 @@ export async function addReaction(jokeId, reactionType) {
         return { success: false, message: 'Already reacted' };
     }
 
-    // Add reaction record
-    const { error: reactionError } = await supabase
-        .from('user_reactions')
-        .insert({
-            joke_id: jokeId,
-            session_id: sessionId,
-            reaction_type: reactionType
-        });
+    // Use the database function for atomic increment + reaction tracking
+    const { data, error } = await supabase.rpc('increment_reaction', {
+        p_joke_id: jokeId,
+        p_reaction_type: reactionType,
+        p_session_id: sessionId
+    });
 
-    if (reactionError) {
-        console.error('Error adding reaction:', reactionError);
+    if (error) {
+        console.error('Error adding reaction:', error);
         return { success: false, message: 'Failed to add reaction' };
-    }
-
-    // Increment count on joke
-    const column = `${reactionType}_count`;
-    const { data: joke } = await supabase
-        .from('jokes')
-        .select(column)
-        .eq('id', jokeId)
-        .single();
-
-    const { error: updateError } = await supabase
-        .from('jokes')
-        .update({ [column]: (joke?.[column] || 0) + 1 })
-        .eq('id', jokeId);
-
-    if (updateError) {
-        console.error('Error updating count:', updateError);
     }
 
     return { success: true };
 }
 
 /**
- * Submit a new joke for moderation
+ * Submit a new joke for moderation (requires authentication)
  */
 export async function submitJoke(setup, punchline, categorySlug = null) {
+    // Check if user is authenticated
+    const user = await getCurrentUser();
+    if (!user) {
+        return { success: false, message: 'Please sign in to submit jokes', requiresAuth: true };
+    }
+
+    // Extract name and email from user metadata (Google provides these)
+    const submitterName = user.user_metadata?.full_name || user.user_metadata?.name || null;
+    const submitterEmail = user.email || null;
+
     const { data, error } = await supabase
         .from('joke_submissions')
         .insert({
             setup,
             punchline,
-            category_slug: categorySlug
+            category_slug: categorySlug,
+            submitted_by: user.id,
+            submitter_name: submitterName,
+            submitter_email: submitterEmail
         })
         .select()
         .single();
@@ -207,6 +202,97 @@ export async function submitJoke(setup, punchline, categorySlug = null) {
     }
 
     return { success: true, id: data.id };
+}
+
+// ============================================
+// AUTHENTICATION
+// ============================================
+
+/**
+ * Get current authenticated user
+ */
+export async function getCurrentUser() {
+    const { data: { user } } = await supabase.auth.getUser();
+    return user;
+}
+
+/**
+ * Check if user is authenticated
+ */
+export async function isAuthenticated() {
+    const user = await getCurrentUser();
+    return !!user;
+}
+
+/**
+ * Sign in with OAuth provider (Google, GitHub, etc.)
+ */
+export async function signInWithProvider(provider) {
+    const { data, error } = await supabase.auth.signInWithOAuth({
+        provider,
+        options: {
+            redirectTo: window.location.origin
+        }
+    });
+
+    if (error) {
+        console.error('Sign in error:', error);
+        return { success: false, message: error.message };
+    }
+
+    return { success: true, data };
+}
+
+/**
+ * Sign in with email (magic link)
+ */
+export async function signInWithEmail(email) {
+    const { data, error } = await supabase.auth.signInWithOtp({
+        email,
+        options: {
+            emailRedirectTo: window.location.origin
+        }
+    });
+
+    if (error) {
+        console.error('Sign in error:', error);
+        return { success: false, message: error.message };
+    }
+
+    return { success: true, message: 'Check your email for the login link!' };
+}
+
+/**
+ * Sign out current user
+ */
+export async function signOut() {
+    const { error } = await supabase.auth.signOut();
+    if (error) {
+        console.error('Sign out error:', error);
+        return { success: false, message: error.message };
+    }
+    return { success: true };
+}
+
+/**
+ * Subscribe to auth state changes
+ */
+export function onAuthStateChange(callback) {
+    return supabase.auth.onAuthStateChange((event, session) => {
+        callback(event, session?.user || null);
+    });
+}
+
+/**
+ * Check if feature requires auth and user is not authenticated
+ * Returns true if auth is required but missing
+ */
+export async function requiresAuth(featureName) {
+    const authenticated = await isAuthenticated();
+    if (!authenticated) {
+        return { required: true, message: `Please sign in to ${featureName}` };
+    }
+    return { required: false };
 }
 
 /**

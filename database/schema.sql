@@ -153,6 +153,7 @@ END;
 $$ LANGUAGE plpgsql;
 
 -- Function to increment reaction count
+-- SECURITY DEFINER allows bypassing RLS to update jokes table
 CREATE OR REPLACE FUNCTION increment_reaction(
     p_joke_id UUID,
     p_reaction_type VARCHAR(20),
@@ -169,7 +170,7 @@ BEGIN
 
     v_column := p_reaction_type || '_count';
 
-    -- Update joke count
+    -- Update joke count atomically
     EXECUTE format('UPDATE jokes SET %I = %I + 1, updated_at = NOW() WHERE id = $1', v_column, v_column)
     USING p_joke_id;
 
@@ -182,7 +183,7 @@ BEGIN
 
     RETURN TRUE;
 END;
-$$ LANGUAGE plpgsql;
+$$ LANGUAGE plpgsql SECURITY DEFINER;
 
 -- Function to get today's joke
 CREATE OR REPLACE FUNCTION get_daily_joke()
@@ -250,10 +251,15 @@ CREATE POLICY "Users can view their reactions"
 ON user_reactions FOR SELECT
 USING (true);
 
--- Joke submissions: Anyone can submit
-CREATE POLICY "Anyone can submit jokes"
+-- Joke submissions: Only authenticated users can submit
+CREATE POLICY "Authenticated users can submit jokes"
 ON joke_submissions FOR INSERT
-WITH CHECK (true);
+WITH CHECK (auth.uid() IS NOT NULL);
+
+-- Users can view their own submissions
+CREATE POLICY "Users can view own submissions"
+ON joke_submissions FOR SELECT
+USING (auth.uid() = submitted_by);
 
 -- Daily jokes: Public read
 CREATE POLICY "Daily jokes are viewable by everyone"
