@@ -1,0 +1,85 @@
+/* ========================================
+   CSS Variables - Theme & Design Tokens
+   ======================================== */
+
+:root {
+    /* Colors - Warm nostalgic palette */
+    --color-cream: #FDF6E3;
+    --color-mustard: #E8A838;
+    --color-rust: #C94C2B;
+    --color-teal: #2A9D8F;
+    --color-navy: #1D3557;
+    --color-charcoal: #2D2D2D;
+
+    /* Semantic colors */
+    --color-bg: var(--color-cream);
+    --color-primary: var(--color-rust);
+    --color-secondary: var(--color-mustard);
+    --color-accent: var(--color-teal);
+    --color-text: var(--color-charcoal);
+    --color-text-light: #5A5A5A;
+    --color-white: #FFFFFF;
+
+    /* Typography */
+    --font-display: 'Archivo Black', sans-serif;
+    --font-body: 'Crimson Pro', Georgia, serif;
+    --font-mono: 'JetBrains Mono', monospace;
+
+    /* Font sizes - fluid typography */
+    --text-xs: clamp(0.75rem, 0.7rem + 0.25vw, 0.85rem);
+    --text-sm: clamp(0.85rem, 0.8rem + 0.25vw, 0.95rem);
+    --text-base: clamp(1rem, 0.9rem + 0.5vw, 1.125rem);
+    --text-lg: clamp(1.125rem, 1rem + 0.6vw, 1.35rem);
+    --text-xl: clamp(1.25rem, 1.1rem + 0.75vw, 1.75rem);
+    --text-2xl: clamp(1.5rem, 1.25rem + 1.25vw, 2.25rem);
+    --text-3xl: clamp(2rem, 1.5rem + 2.5vw, 3rem);
+
+    /* Spacing - consistent scale */
+    --space-xs: 0.25rem;
+    --space-sm: 0.5rem;
+    --space-md: 1rem;
+    --space-lg: 1.5rem;
+    --space-xl: 2rem;
+    --space-2xl: 3rem;
+    --space-3xl: 4rem;
+
+    /* Borders & Radii */
+    --radius-sm: 6px;
+    --radius-md: 12px;
+    --radius-lg: 20px;
+    --radius-full: 9999px;
+    --border-thin: 2px;
+    --border-medium: 3px;
+    --border-thick: 4px;
+
+    /* Shadows */
+    --shadow-soft: 0 4px 20px rgba(0, 0, 0, 0.08);
+    --shadow-hard: 4px 4px 0 var(--color-charcoal);
+    --shadow-hard-sm: 2px 2px 0 var(--color-charcoal);
+    --shadow-hard-lg: 6px 6px 0 var(--color-charcoal);
+
+    /* Transitions */
+    --transition-fast: 150ms ease;
+    --transition-normal: 250ms ease;
+    --transition-slow: 400ms ease;
+
+    /* Z-index layers */
+    --z-base: 1;
+    --z-dropdown: 100;
+    --z-sticky: 200;
+    --z-modal: 1000;
+    --z-toast: 1100;
+
+    /* Container */
+    --container-max: 900px;
+    --container-padding: var(--space-lg);
+}
+
+/* Dark mode support (future) */
+@media (prefers-color-scheme: dark) {
+    :root.auto-theme {
+        --color-bg: #1a1a2e;
+        --color-text: #eaeaea;
+        --color-text-light: #b0b0b0;
+    }
+}

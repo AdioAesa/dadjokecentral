@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dad Joke Central | Daily Groan-Worthy Humor</title>
+    <meta name="description" content="The internet's finest collection of dad jokes. Short, punny, and guaranteed to make you groan. Share the cringe!">
+
+    <!-- Open Graph for social sharing -->
+    <meta property="og:title" content="Dad Joke Central">
+    <meta property="og:description" content="Warning: May cause involuntary eye-rolling">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="assets/og-image.png">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Dad Joke Central">
+    <meta name="twitter:description" content="Warning: May cause involuntary eye-rolling">
+
+    <!-- Preconnect for performance -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <!-- Font loading with display swap for performance -->
+    <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Crimson+Pro:ital,wght@0,400;1,400&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+
+    <!-- Modular CSS -->
+    <link rel="stylesheet" href="css/variables.css">
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+    <!-- Floating background elements -->
+    <div class="bg-shapes" aria-hidden="true">
+        <div class="shape shape-1"></div>
+        <div class="shape shape-2"></div>
+        <div class="shape shape-3"></div>
+    </div>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="logo">
+            <span class="logo-icon" aria-hidden="true">🥸</span>
+            <span class="logo-text">Dad Joke Central</span>
+        </div>
+        <nav class="nav" aria-label="Main navigation">
+            <a href="#" class="nav-link active">Random</a>
+            <a href="#categories" class="nav-link">Categories</a>
+            <a href="#submit" class="nav-link">Submit</a>
+        </nav>
+    </header>
+
+    <!-- Main joke display -->
+    <main class="container">
+        <section class="joke-stage" aria-label="Joke display">
+            <div class="joke-card" id="jokeCard">
+                <div class="joke-badge">#DadJokeOfTheDay</div>
+
+                <div class="joke-content">
+                    <p class="joke-setup" id="jokeSetup">Loading...</p>
+                    <div class="joke-reveal-container">
+                        <p class="joke-punchline" id="jokePunchline" aria-live="polite"></p>
+                        <button class="reveal-btn" id="revealBtn" aria-label="Reveal punchline">
+                            <span class="reveal-text">Tap for punchline</span>
+                            <span class="reveal-icon" aria-hidden="true">👇</span>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="joke-footer">
+                    <div class="joke-reactions" role="group" aria-label="Reactions">
+                        <button class="reaction-btn" data-reaction="groan" aria-label="Groan reaction">
+                            <span class="reaction-emoji" aria-hidden="true">😩</span>
+                            <span class="reaction-count">2.4k</span>
+                        </button>
+                        <button class="reaction-btn" data-reaction="laugh" aria-label="Laugh reaction">
+                            <span class="reaction-emoji" aria-hidden="true">😂</span>
+                            <span class="reaction-count">1.8k</span>
+                        </button>
+                        <button class="reaction-btn" data-reaction="eyeroll" aria-label="Eye roll reaction">
+                            <span class="reaction-emoji" aria-hidden="true">🙄</span>
+                            <span class="reaction-count">3.1k</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Action buttons -->
+            <div class="action-bar" role="group" aria-label="Joke actions">
+                <button class="action-btn primary" id="newJokeBtn">
+                    <span class="btn-icon" aria-hidden="true">🎲</span>
+                    <span class="btn-text">New Joke</span>
+                </button>
+                <button class="action-btn" id="copyBtn">
+                    <span class="btn-icon" aria-hidden="true">📋</span>
+                    <span class="btn-text">Copy</span>
+                </button>
+                <button class="action-btn" id="shareBtn">
+                    <span class="btn-icon" aria-hidden="true">📤</span>
+                    <span class="btn-text">Share</span>
+                </button>
+            </div>
+
+            <!-- Social share popup -->
+            <div class="share-popup" id="sharePopup" role="dialog" aria-labelledby="shareTitle" aria-hidden="true">
+                <div class="share-popup-content">
+                    <h3 id="shareTitle">Share this gem</h3>
+                    <div class="share-buttons">
+                        <a href="#" class="share-link twitter" id="shareTwitter">
+                            <span aria-hidden="true">𝕏</span> Twitter
+                        </a>
+                        <a href="#" class="share-link facebook" id="shareFacebook">
+                            <span aria-hidden="true">f</span> Facebook
+                        </a>
+                        <a href="#" class="share-link whatsapp" id="shareWhatsapp">
+                            <span aria-hidden="true">💬</span> WhatsApp
+                        </a>
+                        <a href="#" class="share-link reddit" id="shareReddit">
+                            <span aria-hidden="true">🔺</span> Reddit
+                        </a>
+                    </div>
+                    <button class="share-close" id="shareClose" aria-label="Close share dialog">×</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Categories section - dynamically populated -->
+        <section class="categories" id="categories" aria-label="Browse by category">
+            <h2 class="section-title">Browse by Category</h2>
+            <div class="category-grid" id="categoryGrid" role="list">
+                <!-- Categories populated by JS -->
+            </div>
+        </section>
+
+        <!-- Submit section -->
+        <section class="submit-section" id="submit" aria-label="Submit a joke">
+            <div class="submit-card">
+                <h2 class="submit-title">Got a groaner?</h2>
+                <p class="submit-desc">Submit your best dad joke and become a legend.</p>
+                <form class="submit-form" id="submitForm">
+                    <div class="form-group">
+                        <label for="setupInput">Setup</label>
+                        <input type="text" id="setupInput" placeholder="Why did the scarecrow win an award?" required autocomplete="off">
+                    </div>
+                    <div class="form-group">
+                        <label for="punchlineInput">Punchline</label>
+                        <input type="text" id="punchlineInput" placeholder="Because he was outstanding in his field!" required autocomplete="off">
+                    </div>
+                    <button type="submit" class="submit-btn">
+                        <span>Submit Joke</span>
+                        <span class="submit-icon" aria-hidden="true">🚀</span>
+                    </button>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <!-- Toast notification -->
+    <div class="toast" id="toast" role="status" aria-live="polite">
+        <span class="toast-icon" aria-hidden="true">✓</span>
+        <span class="toast-message" id="toastMessage">Copied to clipboard!</span>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>Made with 😅 by dads, for everyone</p>
+        <p class="footer-tagline">Warning: Side effects include groaning, eye-rolling, and uncontrollable sharing</p>
+    </footer>
+
+    <!-- ES Modules -->
+    <script type="module" src="js/app.js"></script>
+</body>
+</html>
