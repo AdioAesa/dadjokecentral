@@ -407,7 +407,7 @@
     box-shadow: var(--shadow-hard);
     text-align: center;
     position: relative;
-    max-width: 400px;
+    max-width: 420px;
     width: 90%;
     animation: popIn var(--transition-normal);
 }
@@ -417,11 +417,124 @@
     to { transform: scale(1); opacity: 1; }
 }
 
+.share-close {
+    position: absolute;
+    top: var(--space-sm);
+    right: var(--space-sm);
+    font-size: 1.5rem;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    transition: background var(--transition-fast);
+}
+
+.share-close:hover { background: var(--color-cream); }
+
+/* Share sections */
+.share-section {
+    margin-bottom: var(--space-md);
+}
+
+.share-section-label {
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--color-text-light);
+    margin-bottom: var(--space-sm);
+}
+
+/* Image share buttons */
+.share-image-buttons {
+    display: flex;
+    gap: var(--space-sm);
+    justify-content: center;
+}
+
+.share-image-btn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-xs);
+    padding: var(--space-md) var(--space-lg);
+    background: var(--color-cream);
+    border: var(--border-medium) solid var(--color-charcoal);
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    transition: all var(--transition-fast);
+    min-width: 90px;
+}
+
+.share-image-btn:hover {
+    background: var(--color-secondary);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-hard-sm);
+}
+
+.share-image-btn:active {
+    transform: translateY(0);
+}
+
+.share-image-btn.loading {
+    opacity: 0.7;
+    pointer-events: none;
+}
+
+.share-image-btn.loading .share-btn-icon {
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+.share-btn-icon {
+    font-size: 1.5rem;
+}
+
+.share-btn-text {
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    color: var(--color-charcoal);
+}
+
+/* Hide native share button on desktop (no file share support) */
+.share-native-btn {
+    display: none;
+}
+
+@media (hover: none) and (pointer: coarse) {
+    .share-native-btn {
+        display: flex;
+    }
+}
+
+/* Share divider */
+.share-divider {
+    display: flex;
+    align-items: center;
+    gap: var(--space-md);
+    margin: var(--space-lg) 0;
+    color: var(--color-text-light);
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+}
+
+.share-divider::before,
+.share-divider::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--color-charcoal);
+    opacity: 0.2;
+}
+
+/* Social share buttons */
 .share-buttons {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: var(--space-sm);
-    margin-top: var(--space-md);
 }
 
 .share-link {
@@ -438,23 +551,10 @@
 }
 
 .share-link:hover { transform: scale(1.05); }
-.share-link.twitter { background: #1DA1F2; }
-.share-link.facebook { background: #4267B2; }
+.share-link.twitter { background: #000000; }
+.share-link.facebook { background: #1877F2; }
 .share-link.whatsapp { background: #25D366; }
 .share-link.reddit { background: #FF4500; }
-
-.share-close {
-    position: absolute;
-    top: var(--space-sm);
-    right: var(--space-sm);
-    font-size: 1.5rem;
-    width: 32px;
-    height: 32px;
-    border-radius: 50%;
-    transition: background var(--transition-fast);
-}
-
-.share-close:hover { background: var(--color-cream); }
 
 /* Auth Modal */
 .auth-modal {

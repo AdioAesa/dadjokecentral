@@ -41,7 +41,11 @@ import {
     copyToClipboard,
     canNativeShare,
     nativeShare,
-    openSocialShare
+    openSocialShare,
+    downloadJokeImage,
+    copyJokeImageToClipboard,
+    shareJokeImage,
+    getImageShareSupport
 } from './share.js';
 
 /**
@@ -411,6 +415,67 @@ function setupEventListeners() {
     document.getElementById('shareClose')?.addEventListener('click', () => toggleSharePopup(false));
     elements.sharePopup?.addEventListener('click', (e) => {
         if (e.target === elements.sharePopup) toggleSharePopup(false);
+    });
+
+    // Image share buttons
+    document.getElementById('shareDownload')?.addEventListener('click', async (e) => {
+        const btn = e.currentTarget;
+        const { currentJoke } = store.getState();
+
+        btn.classList.add('loading');
+        const iconEl = btn.querySelector('.share-btn-icon');
+        const originalIcon = iconEl.textContent;
+        iconEl.textContent = '⏳';
+
+        try {
+            const success = await downloadJokeImage(currentJoke);
+            showToast(success ? 'Image downloaded!' : 'Download failed');
+            if (success) toggleSharePopup(false);
+        } finally {
+            btn.classList.remove('loading');
+            iconEl.textContent = originalIcon;
+        }
+    });
+
+    document.getElementById('shareCopyImage')?.addEventListener('click', async (e) => {
+        const btn = e.currentTarget;
+        const { currentJoke } = store.getState();
+
+        btn.classList.add('loading');
+        const iconEl = btn.querySelector('.share-btn-icon');
+        const originalIcon = iconEl.textContent;
+        iconEl.textContent = '⏳';
+
+        try {
+            const success = await copyJokeImageToClipboard(currentJoke);
+            showToast(success ? 'Image copied to clipboard!' : 'Copy failed - try downloading instead');
+            if (success) toggleSharePopup(false);
+        } finally {
+            btn.classList.remove('loading');
+            iconEl.textContent = originalIcon;
+        }
+    });
+
+    document.getElementById('shareNative')?.addEventListener('click', async (e) => {
+        const btn = e.currentTarget;
+        const { currentJoke } = store.getState();
+
+        btn.classList.add('loading');
+        const iconEl = btn.querySelector('.share-btn-icon');
+        const originalIcon = iconEl.textContent;
+        iconEl.textContent = '⏳';
+
+        try {
+            const success = await shareJokeImage(currentJoke);
+            if (success) {
+                toggleSharePopup(false);
+            } else {
+                showToast('Share cancelled or not supported');
+            }
+        } finally {
+            btn.classList.remove('loading');
+            iconEl.textContent = originalIcon;
+        }
     });
 
     // Social share links

@@ -1,7 +1,15 @@
 /**
  * Sharing functionality
- * Handles clipboard, social sharing, and native share API
+ * Handles clipboard, social sharing, native share API, and image sharing
  */
+
+// Re-export image sharing functions
+export {
+    downloadJokeImage,
+    copyJokeImageToClipboard,
+    shareJokeImage,
+    getImageShareSupport
+} from './imageShare.js';
 
 /**
  * Format joke for sharing
