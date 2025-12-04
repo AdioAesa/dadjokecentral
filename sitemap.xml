@@ -2,7 +2,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <!-- Homepage -->
     <url>
-        <loc>https://dadjoke-central.vercel.app/</loc>
+        <loc>https://dadjokecentral.net/</loc>
         <lastmod>2025-01-02</lastmod>
         <changefreq>daily</changefreq>
         <priority>1.0</priority>
@@ -10,7 +10,7 @@
 
     <!-- Category Pages (anchor links) -->
     <url>
-        <loc>https://dadjoke-central.vercel.app/#categories</loc>
+        <loc>https://dadjokecentral.net/#categories</loc>
         <lastmod>2025-01-02</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
@@ -18,7 +18,7 @@
 
     <!-- Submit Page -->
     <url>
-        <loc>https://dadjoke-central.vercel.app/#submit</loc>
+        <loc>https://dadjokecentral.net/#submit</loc>
         <lastmod>2025-01-02</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.6</priority>
@@ -26,61 +26,61 @@
 
     <!-- Individual Category Anchors for SEO -->
     <url>
-        <loc>https://dadjoke-central.vercel.app/#classic</loc>
+        <loc>https://dadjokecentral.net/#classic</loc>
         <lastmod>2025-01-02</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.7</priority>
     </url>
     <url>
-        <loc>https://dadjoke-central.vercel.app/#food</loc>
+        <loc>https://dadjokecentral.net/#food</loc>
         <lastmod>2025-01-02</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.7</priority>
     </url>
     <url>
-        <loc>https://dadjoke-central.vercel.app/#animals</loc>
+        <loc>https://dadjokecentral.net/#animals</loc>
         <lastmod>2025-01-02</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.7</priority>
     </url>
     <url>
-        <loc>https://dadjoke-central.vercel.app/#work</loc>
+        <loc>https://dadjokecentral.net/#work</loc>
         <lastmod>2025-01-02</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.7</priority>
     </url>
     <url>
-        <loc>https://dadjoke-central.vercel.app/#science</loc>
+        <loc>https://dadjokecentral.net/#science</loc>
         <lastmod>2025-01-02</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.7</priority>
     </url>
     <url>
-        <loc>https://dadjoke-central.vercel.app/#holiday</loc>
+        <loc>https://dadjokecentral.net/#holiday</loc>
         <lastmod>2025-01-02</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.7</priority>
     </url>
     <url>
-        <loc>https://dadjoke-central.vercel.app/#sports</loc>
+        <loc>https://dadjokecentral.net/#sports</loc>
         <lastmod>2025-01-02</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.7</priority>
     </url>
     <url>
-        <loc>https://dadjoke-central.vercel.app/#tech</loc>
+        <loc>https://dadjokecentral.net/#tech</loc>
         <lastmod>2025-01-02</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.7</priority>
     </url>
     <url>
-        <loc>https://dadjoke-central.vercel.app/#music</loc>
+        <loc>https://dadjokecentral.net/#music</loc>
         <lastmod>2025-01-02</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.7</priority>
     </url>
     <url>
-        <loc>https://dadjoke-central.vercel.app/#school</loc>
+        <loc>https://dadjokecentral.net/#school</loc>
         <lastmod>2025-01-02</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.7</priority>

@@ -1,11 +1,11 @@
 # Robots.txt for Dad Joke Central
-# https://dadjoke-central.vercel.app
+# https://dadjokecentral.net
 
 User-agent: *
 Allow: /
 
 # Sitemap location
-Sitemap: https://dadjoke-central.vercel.app/sitemap.xml
+Sitemap: https://dadjokecentral.net/sitemap.xml
 
 # Crawl delay (optional, be nice to servers)
 Crawl-delay: 1
