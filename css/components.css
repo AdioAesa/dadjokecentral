@@ -556,6 +556,69 @@
 .share-link.whatsapp { background: #25D366; }
 .share-link.reddit { background: #FF4500; }
 
+/* Social Image Share Buttons */
+.share-social-image-buttons {
+    display: flex;
+    gap: var(--space-sm);
+    justify-content: center;
+}
+
+.share-social-btn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-xs);
+    padding: var(--space-md) var(--space-lg);
+    border: var(--border-medium) solid var(--color-charcoal);
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    transition: all var(--transition-fast);
+    min-width: 100px;
+    color: var(--color-white);
+    box-shadow: var(--shadow-hard-sm);
+}
+
+.share-social-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-hard);
+}
+
+.share-social-btn:active {
+    transform: translateY(0);
+    box-shadow: none;
+}
+
+.share-social-btn.loading {
+    opacity: 0.7;
+    pointer-events: none;
+}
+
+.share-social-btn.loading .share-social-icon {
+    animation: spin 1s linear infinite;
+}
+
+.share-social-btn.twitter {
+    background: #000000;
+}
+
+.share-social-btn.facebook {
+    background: #1877F2;
+}
+
+.share-social-btn.instagram {
+    background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+}
+
+.share-social-icon {
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.share-social-text {
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+}
+
 /* Auth Modal */
 .auth-modal {
     position: fixed;

@@ -478,8 +478,68 @@ function setupEventListeners() {
         }
     });
 
-    // Social share links
-    ['twitter', 'facebook', 'whatsapp', 'reddit'].forEach(platform => {
+    // Social image share buttons (Twitter, Facebook, Instagram)
+    const socialImageHandlers = {
+        twitter: async () => {
+            const { currentJoke } = store.getState();
+            const copied = await copyJokeImageToClipboard(currentJoke);
+            if (copied) {
+                window.open('https://twitter.com/intent/tweet', '_blank', 'width=550,height=420');
+                showToast('Image copied! Paste it in your tweet');
+            } else {
+                // Fallback: download and open Twitter
+                await downloadJokeImage(currentJoke);
+                window.open('https://twitter.com/intent/tweet', '_blank', 'width=550,height=420');
+                showToast('Image downloaded! Attach it to your tweet');
+            }
+            toggleSharePopup(false);
+        },
+        facebook: async () => {
+            const { currentJoke } = store.getState();
+            const copied = await copyJokeImageToClipboard(currentJoke);
+            if (copied) {
+                window.open('https://www.facebook.com/', '_blank');
+                showToast('Image copied! Paste it in your post');
+            } else {
+                await downloadJokeImage(currentJoke);
+                window.open('https://www.facebook.com/', '_blank');
+                showToast('Image downloaded! Upload it to Facebook');
+            }
+            toggleSharePopup(false);
+        },
+        instagram: async () => {
+            const { currentJoke } = store.getState();
+            const success = await downloadJokeImage(currentJoke);
+            if (success) {
+                showToast('Image saved! Open Instagram to share');
+            } else {
+                showToast('Download failed. Please try again.');
+            }
+            toggleSharePopup(false);
+        }
+    };
+
+    ['twitter', 'facebook', 'instagram'].forEach(platform => {
+        const btn = document.getElementById(`share${platform.charAt(0).toUpperCase() + platform.slice(1)}Image`);
+        btn?.addEventListener('click', async (e) => {
+            const btnEl = e.currentTarget;
+            const iconEl = btnEl.querySelector('.share-social-icon');
+            const originalIcon = iconEl.textContent;
+
+            btnEl.classList.add('loading');
+            iconEl.textContent = '⏳';
+
+            try {
+                await socialImageHandlers[platform]();
+            } finally {
+                btnEl.classList.remove('loading');
+                iconEl.textContent = originalIcon;
+            }
+        });
+    });
+
+    // Social share links (text)
+    ['whatsapp', 'reddit'].forEach(platform => {
         document.getElementById(`share${platform.charAt(0).toUpperCase() + platform.slice(1)}`)
             ?.addEventListener('click', (e) => {
                 e.preventDefault();

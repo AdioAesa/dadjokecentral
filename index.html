@@ -108,37 +108,51 @@
                     <button class="share-close" id="shareClose" aria-label="Close share dialog">×</button>
                     <h3 id="shareTitle">Share this gem</h3>
 
-                    <!-- Image Share Options -->
+                    <!-- Social Image Share - Same look on all platforms -->
                     <div class="share-section">
                         <p class="share-section-label">Share as Image</p>
-                        <div class="share-image-buttons">
-                            <button class="share-image-btn" id="shareDownload" aria-label="Download as image">
-                                <span class="share-btn-icon">📥</span>
-                                <span class="share-btn-text">Download</span>
+                        <div class="share-social-image-buttons">
+                            <button class="share-social-btn twitter" id="shareTwitterImage" aria-label="Share to Twitter/X">
+                                <span class="share-social-icon">𝕏</span>
+                                <span class="share-social-text">Twitter</span>
                             </button>
-                            <button class="share-image-btn" id="shareCopyImage" aria-label="Copy image to clipboard">
-                                <span class="share-btn-icon">📋</span>
-                                <span class="share-btn-text">Copy Image</span>
+                            <button class="share-social-btn facebook" id="shareFacebookImage" aria-label="Share to Facebook">
+                                <span class="share-social-icon">f</span>
+                                <span class="share-social-text">Facebook</span>
                             </button>
-                            <button class="share-image-btn share-native-btn" id="shareNative" aria-label="Share image">
-                                <span class="share-btn-icon">📤</span>
-                                <span class="share-btn-text">Share</span>
+                            <button class="share-social-btn instagram" id="shareInstagramImage" aria-label="Share to Instagram">
+                                <span class="share-social-icon">📷</span>
+                                <span class="share-social-text">Instagram</span>
                             </button>
                         </div>
+                    </div>
+
+                    <div class="share-divider">
+                        <span>or save image</span>
+                    </div>
+
+                    <!-- Image Save Options -->
+                    <div class="share-image-buttons">
+                        <button class="share-image-btn" id="shareDownload" aria-label="Download as image">
+                            <span class="share-btn-icon">📥</span>
+                            <span class="share-btn-text">Download</span>
+                        </button>
+                        <button class="share-image-btn" id="shareCopyImage" aria-label="Copy image to clipboard">
+                            <span class="share-btn-icon">📋</span>
+                            <span class="share-btn-text">Copy Image</span>
+                        </button>
+                        <button class="share-image-btn share-native-btn" id="shareNative" aria-label="Share image">
+                            <span class="share-btn-icon">📤</span>
+                            <span class="share-btn-text">Share</span>
+                        </button>
                     </div>
 
                     <div class="share-divider">
                         <span>or share as text</span>
                     </div>
 
-                    <!-- Social Platform Links -->
+                    <!-- Social Platform Links (Text) -->
                     <div class="share-buttons">
-                        <a href="#" class="share-link twitter" id="shareTwitter">
-                            <span aria-hidden="true">𝕏</span> Twitter
-                        </a>
-                        <a href="#" class="share-link facebook" id="shareFacebook">
-                            <span aria-hidden="true">f</span> Facebook
-                        </a>
                         <a href="#" class="share-link whatsapp" id="shareWhatsapp">
                             <span aria-hidden="true">💬</span> WhatsApp
                         </a>
