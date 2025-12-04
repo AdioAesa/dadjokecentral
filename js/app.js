@@ -199,13 +199,16 @@ async function handleCopy() {
 async function handleShare() {
     const { currentJoke } = store.getState();
 
-    // Try native share first on mobile
-    if (canNativeShare()) {
+    // Only use native share on actual mobile devices (phones/tablets)
+    // Detect mobile via user agent - touchscreen laptops should use popup
+    const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+
+    if (isMobile && canNativeShare()) {
         const shared = await nativeShare(currentJoke);
         if (shared) return;
     }
 
-    // Fall back to popup - ensure popup exists
+    // Show popup for desktop or when native share fails/cancels
     const sharePopup = document.getElementById('sharePopup');
     if (!sharePopup) {
         console.error('Share popup not found in DOM');
