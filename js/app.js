@@ -205,7 +205,14 @@ async function handleShare() {
         if (shared) return;
     }
 
-    // Fall back to popup
+    // Fall back to popup - ensure popup exists
+    const sharePopup = document.getElementById('sharePopup');
+    if (!sharePopup) {
+        console.error('Share popup not found in DOM');
+        showToast('Share feature unavailable');
+        return;
+    }
+
     toggleSharePopup(true);
 }
 
@@ -411,11 +418,23 @@ function setupEventListeners() {
     document.getElementById('copyBtn')?.addEventListener('click', handleCopy);
 
     // Share
-    document.getElementById('shareBtn')?.addEventListener('click', handleShare);
-    document.getElementById('shareClose')?.addEventListener('click', () => toggleSharePopup(false));
-    elements.sharePopup?.addEventListener('click', (e) => {
-        if (e.target === elements.sharePopup) toggleSharePopup(false);
-    });
+    const shareBtn = document.getElementById('shareBtn');
+    const shareClose = document.getElementById('shareClose');
+    const sharePopup = document.getElementById('sharePopup');
+
+    if (shareBtn) {
+        shareBtn.addEventListener('click', handleShare);
+    }
+
+    if (shareClose) {
+        shareClose.addEventListener('click', () => toggleSharePopup(false));
+    }
+
+    if (sharePopup) {
+        sharePopup.addEventListener('click', (e) => {
+            if (e.target === sharePopup) toggleSharePopup(false);
+        });
+    }
 
     // Image share buttons
     document.getElementById('shareDownload')?.addEventListener('click', async (e) => {

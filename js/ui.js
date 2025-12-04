@@ -139,7 +139,12 @@ export function showToast(message, duration = 3000) {
  * @param {boolean} show - Show or hide
  */
 export function toggleSharePopup(show) {
-    elements.sharePopup?.classList.toggle('active', show);
+    const popup = elements.sharePopup || document.getElementById('sharePopup');
+    if (!popup) {
+        console.error('Share popup element not found');
+        return;
+    }
+    popup.classList.toggle('active', show);
 }
 
 /**
