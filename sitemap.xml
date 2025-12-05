@@ -3,7 +3,7 @@
     <!-- Homepage -->
     <url>
         <loc>https://dadjokecentral.net/</loc>
-        <lastmod>2025-01-02</lastmod>
+        <lastmod>2025-12-04</lastmod>
         <changefreq>daily</changefreq>
         <priority>1.0</priority>
     </url>
@@ -11,7 +11,7 @@
     <!-- Category Pages (anchor links) -->
     <url>
         <loc>https://dadjokecentral.net/#categories</loc>
-        <lastmod>2025-01-02</lastmod>
+        <lastmod>2025-12-04</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
     </url>
@@ -19,7 +19,7 @@
     <!-- Submit Page -->
     <url>
         <loc>https://dadjokecentral.net/#submit</loc>
-        <lastmod>2025-01-02</lastmod>
+        <lastmod>2025-12-04</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.6</priority>
     </url>
@@ -27,61 +27,61 @@
     <!-- Individual Category Anchors for SEO -->
     <url>
         <loc>https://dadjokecentral.net/#classic</loc>
-        <lastmod>2025-01-02</lastmod>
+        <lastmod>2025-12-04</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.7</priority>
     </url>
     <url>
         <loc>https://dadjokecentral.net/#food</loc>
-        <lastmod>2025-01-02</lastmod>
+        <lastmod>2025-12-04</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.7</priority>
     </url>
     <url>
         <loc>https://dadjokecentral.net/#animals</loc>
-        <lastmod>2025-01-02</lastmod>
+        <lastmod>2025-12-04</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.7</priority>
     </url>
     <url>
         <loc>https://dadjokecentral.net/#work</loc>
-        <lastmod>2025-01-02</lastmod>
+        <lastmod>2025-12-04</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.7</priority>
     </url>
     <url>
         <loc>https://dadjokecentral.net/#science</loc>
-        <lastmod>2025-01-02</lastmod>
+        <lastmod>2025-12-04</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.7</priority>
     </url>
     <url>
         <loc>https://dadjokecentral.net/#holiday</loc>
-        <lastmod>2025-01-02</lastmod>
+        <lastmod>2025-12-04</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.7</priority>
     </url>
     <url>
         <loc>https://dadjokecentral.net/#sports</loc>
-        <lastmod>2025-01-02</lastmod>
+        <lastmod>2025-12-04</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.7</priority>
     </url>
     <url>
         <loc>https://dadjokecentral.net/#tech</loc>
-        <lastmod>2025-01-02</lastmod>
+        <lastmod>2025-12-04</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.7</priority>
     </url>
     <url>
         <loc>https://dadjokecentral.net/#music</loc>
-        <lastmod>2025-01-02</lastmod>
+        <lastmod>2025-12-04</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.7</priority>
     </url>
     <url>
         <loc>https://dadjokecentral.net/#school</loc>
-        <lastmod>2025-01-02</lastmod>
+        <lastmod>2025-12-04</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.7</priority>
     </url>
